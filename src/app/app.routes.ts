@@ -3,4 +3,5 @@ import { ProfileGalleryComponent } from './profile-gallery/profile-gallery.compo
 
 export const routes: Routes = [
   { path: '', component: ProfileGalleryComponent }
+
 ];
