@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PetService } from '../services/pet.service';
+import { Observable } from 'rxjs';
 import { Pet } from '../models/pet';
-import { CommonModule } from "@angular/common";
+import { PetService } from '../services/pet.service';
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-profile-gallery',
@@ -10,26 +11,10 @@ import { CommonModule } from "@angular/common";
   templateUrl: './profile-gallery.component.html',
   styleUrls: ['./profile-gallery.component.css']
 })
-export class ProfileGalleryComponent implements OnInit {
-  pets: Pet[] = [];
-  isLoading = true; // Loading state indicator
+export class ProfileGalleryComponent {
+  pets$: Observable<Pet[]>; // Observable of pets
 
-  constructor(private petService: PetService) {}
-
-  ngOnInit(): void {
-    this.fetchPets();
-  }
-
-  private fetchPets(): void {
-    this.petService.getPets().subscribe({
-      next: (petData: Pet[]) => {
-        this.pets = petData;
-        this.isLoading = false; // Data loaded, loading complete
-      },
-      error: (err) => {
-        console.error('There was an error fetching the pets:', err);
-        this.isLoading = false; // Error occurred, loading complete
-      }
-    });
+  constructor(private petService: PetService) {
+    this.pets$ = this.petService.getPets(); // Directly assign the observable from the service
   }
 }

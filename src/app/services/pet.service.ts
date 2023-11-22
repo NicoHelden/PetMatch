@@ -8,7 +8,7 @@ import {environment} from "../../environments/environment";// make sure the path
   providedIn: 'root'
 })
 export class PetService {
-  private apiUrl: string;
+  apiUrl: string;
   constructor( private http: HttpClient) {
     console.log("KVS petservice")
     this.apiUrl = `${environment.backendUrl}/pets`;
