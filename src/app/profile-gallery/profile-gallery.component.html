@@ -1,0 +1,8 @@
+<!-- src/app/profile-gallery/profile-gallery.component.html -->
+
+<div *ngFor="let pet of pets" class="pet-profile">
+  <img [src]="'https://pettinder.herokuapp.com/' + pet.image" alt="Photo of {{ pet.name }}">
+  <h2>{{ pet.name }}</h2>
+  <p>{{ pet.description }}</p>
+  <!-- Add more pet details here -->
+</div>

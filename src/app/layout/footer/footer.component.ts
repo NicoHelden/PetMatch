@@ -9,13 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  year: string;
+  year: number;
 
   constructor() {
-    this.year = new Date().getFullYear().toString()
+    this.year = new Date().getFullYear()
   }
 
-  ourCompany() {
-    return "switchfully";
-  }
 }
