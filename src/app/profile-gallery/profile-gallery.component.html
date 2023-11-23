@@ -1,9 +1,50 @@
-<!-- src/app/profile-gallery/profile-gallery.component.html -->
+<div class="container-fluid">
+  <div class="row">
 
-<!-- Use the async pipe to subscribe to the pets$ observable -->
-<div *ngFor="let pet of pets$ | async" class="pet-profile">
-  <h2>{{ pet.name }}</h2>
-  <p>{{ pet.description }}</p>
-  <!-- Additional pet details can be added here -->
+    <!-- Search section -->
+    <div class="col-md-12">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search by name" class="search-box">
+    </div>
+
+    <div id="gallery" class="col-md-9">
+      <div class="gallery">
+        <!-- Use the async pipe with the pets$ observable -->
+        <div class="gallery-pet fader"
+             *ngFor="let pet of (pets$ | async) ?? [] | nameFilter:searchTerm"
+             (click)="selectPet(pet)"
+             [class.active]="pet === selectedPet">
+          <img class="profile-picture" [src]="'https://pettinder.herokuapp.com/'+ pet.image" alt="{{ pet.name }}">
+          <div class="overlay">
+            <div class="overlay-text">{{ pet.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3" >
+      <div class="gallery-detail">
+        <section id="petProfile" class="tiny-dialog fader" *ngIf="selectedPet">
+          <h3>{{ selectedPet.name }}</h3>
+          <p>{{ selectedPet.profileText }}</p>
+        </section>
+      </div>
+
+      <!-- Search section -->
+      <section class="tiny-dialog">
+        <h3>Find your pet</h3>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input id="name"
+                 name="name"
+                 class="form-control"
+                 placeholder="Name"
+                 [(ngModel)]="searchTerm">
+        </div>
+      </section>
+    </div>
+
+  </div>
 </div>
+
+
 
