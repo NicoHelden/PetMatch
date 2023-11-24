@@ -1,10 +1,6 @@
 <div class="container-fluid">
   <div class="row">
 
-    <!-- Search section -->
-    <div class="col-md-12">
-      <input type="text" [(ngModel)]="searchTerm" placeholder="Search by name" class="search-box">
-    </div>
 
     <div id="gallery" class="col-md-9">
       <div class="gallery">
@@ -41,6 +37,32 @@
                  [(ngModel)]="searchTerm">
         </div>
       </section>
+
+      <!-- Add Pet Form -->
+      <form [formGroup]="addPetForm" (ngSubmit)="onAddPet()" class="tiny-dialog add-pet-form">
+        <h3>Add your pet</h3>
+        <div class="form-group">
+          <label for="petName">Name</label>
+          <input type="text" id="petName" formControlName="name" class="form-control" placeholder="Pet's Name" required>
+        </div>
+        <div class="form-group">
+          <label for="petKind">Kind</label>
+          <input type="text" id="petKind" formControlName="kind" class="form-control" placeholder="Kind of Pet" required>
+        </div>
+        <div class="form-group">
+          <label for="petImage">Picture</label>
+          <input type="text" id="petImage" formControlName="image" class="form-control" placeholder="Image Filename">
+        </div>
+        <div class="form-group">
+          <label for="petProfileText">Profile Text</label>
+          <textarea id="petProfileText" formControlName="profileText" class="form-control" placeholder="Profile Text"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="petPopularity">Popularity</label>
+          <input type="number" id="petPopularity" formControlName="popularity" class="form-control" placeholder="Popularity Score">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Pet</button>
+      </form>
     </div>
 
   </div>
