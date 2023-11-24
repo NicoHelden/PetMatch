@@ -1,1 +1,31 @@
-<p>setup-date works!</p>
+<div class="container modalPopup">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="big-dialog">
+        <!-- Pet details -->
+        <div *ngIf="pet" class="clearfix">
+          <div class="pull-left dialog-picture">
+            <!-- Bind the pet image source -->
+            <img class="small-profile-picture" [src]="'https://pettinder.herokuapp.com/'+ pet.image" alt="{{ pet.name }}">
+          </div>
+          <!-- Bind the pet name -->
+          <h3>{{ pet.name }}</h3>
+          <!-- Bind the pet profile text -->
+          <p>{{ pet.profileText }}</p>
+        </div>
+
+        <!-- Form for setting up a date -->
+        <div class="clearfix">
+          <!-- Link to go back or cancel the setup -->
+          <a routerLink="/" class="btn btn-default">Cancel</a>
+          <form [formGroup]="sendTextForm" (ngSubmit)="onSubmit()">
+            <label for="message">Message</label>
+            <!-- Bind the form control name to the input -->
+            <input type="text" id="message" formControlName="message" class="form-control">
+            <button type="submit" class="btn btn-primary pull-right">Let's Play</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

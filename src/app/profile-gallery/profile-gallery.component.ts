@@ -5,11 +5,12 @@ import { PetService } from '../services/pet.service';
 import {CommonModule} from "@angular/common";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NameFilterPipe} from "../pipes/name-filter.pipe";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-profile-gallery',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NameFilterPipe],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NameFilterPipe, RouterLink],
   templateUrl: './profile-gallery.component.html',
   styleUrls: ['./profile-gallery.component.css']
 })
@@ -63,5 +64,32 @@ export class ProfileGalleryComponent implements OnInit {
   }
 
 
+  deletePet(id: number): void {
+    // Optional: Add user confirmation before deletion
+    if (!confirm('Are you sure you want to delete this pet?')) {
+      return;
+    }
 
+    this.petService.deletePet(id).subscribe({
+      next: () => {
+        // Handle successful deletion
+        // Update the UI by removing the pet from the list
+        this.pets$ = this.petService.getPets(); // Refresh the list of pets
+
+        // Reset selected pet if it's the one being deleted
+        if (this.selectedPet && this.selectedPet.id === id) {
+          this.selectedPet = null;
+        }
+
+        // Optionally show a success message
+        alert('Pet successfully deleted');
+      },
+      error: (error) => {
+        // Handle error
+        console.error('Error deleting pet:', error);
+        // Optionally show an error message to the user
+        alert('An error occurred while deleting the pet');
+      }
+    });
+  }
 }

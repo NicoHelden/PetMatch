@@ -18,12 +18,7 @@
     </div>
 
     <div class="col-md-3" >
-      <div class="gallery-detail">
-        <section id="petProfile" class="tiny-dialog fader" *ngIf="selectedPet">
-          <h3>{{ selectedPet.name }}</h3>
-          <p>{{ selectedPet.profileText }}</p>
-        </section>
-      </div>
+
 
       <!-- Search section -->
       <section class="tiny-dialog">
@@ -63,6 +58,23 @@
         </div>
         <button type="submit" class="btn btn-primary">Create Pet</button>
       </form>
+
+      <!-- Selected Pet Details Section -->
+      <div class="gallery-detail" *ngIf="selectedPet">
+        <section id="petProfile" class="tiny-dialog fader">
+          <h3>{{ selectedPet.name }}</h3>
+          <p>{{ selectedPet.profileText }}</p>
+
+          <!-- Setup Date Button -->
+          <a [routerLink]="['/setup-date', selectedPet.name]" class="btn btn-primary">
+            Setup date
+          </a>
+
+          <!-- Delete Pet Button -->
+          <button class="btn btn-danger" (click)="deletePet(selectedPet.id)">Delete Pet</button>
+        </section>
+      </div>
+
     </div>
 
   </div>

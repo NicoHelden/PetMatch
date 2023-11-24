@@ -24,4 +24,15 @@ export class PetService {
   addPet(pet: Pet): Observable<Pet> {
     return this.http.post<Pet>(this.apiUrl, pet);
   }
+
+  getPetByName(name: string): Observable<Pet> {
+    return this.http.get<Pet>(`${this.apiUrl}/${name}`);
+  }
+  sendWhatsApp(name: string): Observable<any> {
+    const whatsappData = { name }; // Structure as expected by the backend
+    return this.http.post<any>(this.apiUrl + '/sendText', whatsappData);
+  }
+  deletePet(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
